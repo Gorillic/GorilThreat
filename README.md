@@ -46,3 +46,8 @@ GorilThreat is a minimal threat bar addon for WoW Anniversary.
 - If settings do not refresh immediately, run `/reload`.
 - If you do not see threat updates, verify threat library availability and combat/target conditions.
 - If SharedMedia textures are missing from the list, verify SharedMedia is installed in the same game flavor.
+
+
+<img width="266" height="49" alt="GorilThreatBar" src="https://github.com/user-attachments/assets/2a0549d3-72c1-4597-9bda-590bfaf48cd5" />
+<img width="928" height="951" alt="GorilThreatOptions" src="https://github.com/user-attachments/assets/87b04ea0-0e3b-42e3-9df4-5a90e7574230" />
+
