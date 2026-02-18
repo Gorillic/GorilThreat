@@ -16,9 +16,9 @@ GorilThreat is a minimal threat bar addon for WoW Anniversary.
 - Optional: `SharedMedia` (or any addon that provides `LibSharedMedia-3.0`) for extra bar textures
 
 ## Installation
-1. Copy `GorilThreat` into:
-   `I:\World of Warcraft\_anniversary_\Interface\AddOns\`
-2. Start the game and enable the addon.
+- Installation: Copy the GorilThreat folder into World of Warcraft\_anniversary_\Interface\AddOns\ 
+- (final path should be ...\Interface\AddOns\GorilThreat\GorilThreat.toc).
+
 
 ## Commands
 - `/gt` or `/gorilthreat`: open options
