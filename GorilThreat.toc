@@ -1,0 +1,28 @@
+## Interface: 120000
+## Title: GorilThreat
+## Notes: Minimal threat bar awareness for WoW Anniversary.
+## Author: Goril
+## Version: 0.1.0
+## IconTexture: Interface\Icons\Ability_Druid_ChallangingRoar
+## SavedVariables: GorilThreatDB
+## OptionalDeps: LibSharedMedia-3.0, SharedMedia
+## X-Category: Combat
+## X-Compatible-With: 11404,20504
+
+libs\LibStub\LibStub.lua
+libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+libs\AceAddon-3.0\AceAddon-3.0.lua
+libs\AceEvent-3.0\AceEvent-3.0.lua
+libs\AceTimer-3.0\AceTimer-3.0.lua
+libs\AceBucket-3.0\AceBucket-3.0.lua
+libs\AceSerializer-3.0\AceSerializer-3.0.lua
+libs\AceComm-3.0\ChatThrottleLib.lua
+libs\AceComm-3.0\AceComm-3.0.lua
+libs\LibThreatClassic2.lua
+
+core.lua
+ui.lua
+options.lua
+slash.lua
+
+

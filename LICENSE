@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Gorillic
+Copyright (c) 2026 TheGorilAbi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,31 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Third-Party Components Notice
+
+This project includes and/or relies on third-party libraries under `libs/`.
+These components remain under their respective original licenses and are not
+relicensed under this project's MIT terms.
+
+Included third-party components currently used in this addon package include:
+- LibThreatClassic2 (`libs/LibThreatClassic2.lua`)
+- LibStub (`libs/LibStub/LibStub.lua`)
+- CallbackHandler-1.0 (`libs/CallbackHandler-1.0/`)
+- Ace3 modules used by LibThreatClassic2:
+  - AceAddon-3.0
+  - AceComm-3.0
+  - AceEvent-3.0
+  - AceTimer-3.0
+  - AceBucket-3.0
+  - AceSerializer-3.0
+
+Please refer to the license files and headers shipped with those libraries
+for exact terms and attribution details.
+
+Acknowledgement and Thanks
+
+Special thanks to the maintainers and contributors of LibThreatClassic2 and
+the Ace3 ecosystem. Their work makes this addon possible.
