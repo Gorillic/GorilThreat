@@ -267,8 +267,25 @@ function GT:InitMinimapButton()
   btn.icon = btn:CreateTexture(nil, "ARTWORK")
   btn.icon:SetSize(17, 17)
   btn.icon:SetPoint("TOPLEFT", btn, "TOPLEFT", 7, -6)
-  btn.icon:SetTexture("Interface\\Icons\\Ability_Druid_ChallangingRoar")
+  btn.icon:SetTexture("Interface\\Icons\\Ability_Devour.blp")
   btn.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+
+  btn:SetScript("OnEnter", function(self)
+    if not GameTooltip then
+      return
+    end
+    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    GameTooltip:ClearLines()
+    GameTooltip:AddLine("GorilThreat")
+    GameTooltip:AddDoubleLine("Left-click:", "Open options", 0.60, 1.00, 0.60, 1, 1, 1)
+    GameTooltip:Show()
+  end)
+
+  btn:SetScript("OnLeave", function(self)
+    if GameTooltip and GameTooltip:IsOwned(self) then
+      GameTooltip:Hide()
+    end
+  end)
 
   btn:SetScript("OnClick", function(self, button)
     if self._ignoreNextClick then
@@ -281,6 +298,9 @@ function GT:InitMinimapButton()
   end)
 
   btn:SetScript("OnDragStart", function(self)
+    if GameTooltip and GameTooltip:IsOwned(self) then
+      GameTooltip:Hide()
+    end
     self:SetScript("OnUpdate", function()
       local mx, my = GetCursorPosition()
       local scale = Minimap:GetEffectiveScale()

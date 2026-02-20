@@ -2,8 +2,8 @@
 ## Title: GorilThreat
 ## Notes: Minimal threat bar awareness for WoW Anniversary.
 ## Author: Goril
-## Version: 0.1.0
-## IconTexture: Interface\Icons\Ability_Druid_ChallangingRoar
+## Version: 0.1.1
+## IconTexture: Interface\Icons\Ability_Devour.blp
 ## SavedVariables: GorilThreatDB
 ## OptionalDeps: LibSharedMedia-3.0, SharedMedia
 ## X-Category: Combat

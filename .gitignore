@@ -1,2 +1,28 @@
-﻿AGENTS.md
-PLAN.md
+# Ignore everything by default
+*
+
+# Allow directory traversal
+!*/
+
+# Keep git settings
+!.gitignore
+
+# Root addon files
+!GorilThreat.toc
+!core.lua
+!ui.lua
+!options.lua
+!slash.lua
+!LICENSE
+
+# Addon content
+!libs/**
+!media/**
+
+# Exclude docs/notes from all locations
+*.md
+*.txt
+
+!CHANGELOG.md
+!README.md
+
