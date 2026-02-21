@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.2 - Unreleased
+- Synced addon version to `0.1.2` in `core.lua` and `GorilThreat.toc`.
+- Added minimap right-click action to toggle bar lock/unlock.
+- Expanded minimap tooltip with right-click lock/unlock hint.
+- Added green unlock overlay on the threat bar while unlocked.
+- Improved resize handling to reduce jumpy movement while shaping the bar.
+- Updated AGGRO presentation: at 100% aggro, bar is hard red, text shows `AGGRO!!`, and flash is enabled.
+- Clarified and expanded project license text in `LICENSE` under ALL RIGHTS RESERVED (TheGorilAbi).
+- Explicitly documented that third-party libraries under `libs/` remain under their original licenses.
+- Removed unused placeholder `media/` folder (`sfx/.gitkeep`, `textures/.gitkeep`).
+
 ## 0.1.1 - 2026-02-20
 - Updated minimap icon to Ability_Devour.
 - Updated addon icon to Ability_Devour.

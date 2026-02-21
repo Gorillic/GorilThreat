@@ -4,7 +4,7 @@ GorilThreat = GorilThreat or {}
 local GT = GorilThreat
 
 GT.ADDON_NAME = ADDON_NAME or "GorilThreat"
-GT.VERSION = "0.1.0"
+GT.VERSION = "0.1.2"
 GT.THROTTLE_SECONDS = 0.2
 
 GT.STATE_SAFE = "SAFE"

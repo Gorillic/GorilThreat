@@ -2,12 +2,13 @@
 ## Title: GorilThreat
 ## Notes: Minimal threat bar awareness for WoW Anniversary.
 ## Author: Goril
-## Version: 0.1.1
+## Version: 0.1.2
 ## IconTexture: Interface\Icons\Ability_Devour.blp
 ## SavedVariables: GorilThreatDB
 ## OptionalDeps: LibSharedMedia-3.0, SharedMedia
 ## X-Category: Combat
 ## X-Compatible-With: 11404,20504
+## X-License: All Rights Reserved
 
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
@@ -24,5 +25,6 @@ core.lua
 ui.lua
 options.lua
 slash.lua
+
 
 

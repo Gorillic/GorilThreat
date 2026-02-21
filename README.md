@@ -51,3 +51,7 @@ GorilThreat is a minimal threat bar addon for WoW Anniversary.
 <img width="266" height="49" alt="GorilThreatBar" src="https://github.com/user-attachments/assets/2a0549d3-72c1-4597-9bda-590bfaf48cd5" />
 <img width="928" height="951" alt="GorilThreatOptions" src="https://github.com/user-attachments/assets/87b04ea0-0e3b-42e3-9df4-5a90e7574230" />
 
+## License
+- This project is licensed as **ALL RIGHTS RESERVED** (copyright holder: **TheGorilAbi**).
+- Third-party libraries under libs/ keep their original licenses.
+

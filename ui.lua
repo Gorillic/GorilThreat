@@ -278,6 +278,11 @@ function GT:InitMinimapButton()
     GameTooltip:ClearLines()
     GameTooltip:AddLine("GorilThreat")
     GameTooltip:AddDoubleLine("Left-click:", "Open options", 0.60, 1.00, 0.60, 1, 1, 1)
+    local lockAction = "Lock bar"
+    if GT and GT.db and GT.db.barLocked then
+      lockAction = "Unlock bar"
+    end
+    GameTooltip:AddDoubleLine("Right-click:", lockAction, 0.60, 1.00, 0.60, 1, 1, 1)
     GameTooltip:Show()
   end)
 
@@ -290,6 +295,12 @@ function GT:InitMinimapButton()
   btn:SetScript("OnClick", function(self, button)
     if self._ignoreNextClick then
       self._ignoreNextClick = nil
+      return
+    end
+    if button == "RightButton" then
+      if GT and GT.db and GT.SetBarLocked then
+        GT:SetBarLocked(not GT.db.barLocked)
+      end
       return
     end
     if button == "LeftButton" and GT and GT.ToggleOptions then
@@ -458,6 +469,7 @@ function GT:SetBarLocked(locked)
     if self.overlayFrame.resizeHandle then
       self.overlayFrame.resizeHandle:SetShown(not self.db.barLocked)
     end
+    self:UpdateUnlockOverlay()
   end
   if self.db.barLocked then
     self:Print("Bar locked.")
@@ -472,6 +484,17 @@ function GT:SetBarLocked(locked)
       self.overlayFrame.valueText:Show()
       self.overlayFrame:Show()
     end
+  end
+end
+
+function GT:UpdateUnlockOverlay()
+  if not self.overlayFrame or not self.overlayFrame.unlockOverlay then
+    return
+  end
+  if self.db and not self.db.barLocked then
+    self.overlayFrame.unlockOverlay:Show()
+  else
+    self.overlayFrame.unlockOverlay:Hide()
   end
 end
 
@@ -507,6 +530,12 @@ function GT:InitUI()
   frame.bar:SetStatusBarTexture(self:GetBarTexturePath(self.db and self.db.barTextureStyle))
   frame.bar:SetStatusBarColor(0.2, 0.85, 0.3, 1)
   frame.bar:SetValue(0)
+
+  frame.unlockOverlay = frame.bar:CreateTexture(nil, "OVERLAY")
+  frame.unlockOverlay:SetAllPoints(frame.bar)
+  frame.unlockOverlay:SetTexture("Interface\\Buttons\\WHITE8X8")
+  frame.unlockOverlay:SetVertexColor(0.15, 0.95, 0.20, 0.18)
+  frame.unlockOverlay:Hide()
 
   frame.soundToggleButton = CreateFrame("Button", nil, frame)
   frame.soundToggleButton:SetSize(16, 16)
@@ -591,11 +620,14 @@ function GT:InitUI()
   frame:EnableMouse(not (self.db and self.db.barLocked))
   frame:RegisterForDrag("LeftButton")
   frame:SetScript("OnDragStart", function(self)
-    if GT.db and not GT.db.barLocked then
+    if GT.db and not GT.db.barLocked and not self.isSizing then
       self:StartMoving()
     end
   end)
   frame:SetScript("OnDragStop", function(self)
+    if self.isSizing then
+      return
+    end
     self:StopMovingOrSizing()
     GT:SaveBarPosition()
   end)
@@ -606,6 +638,16 @@ function GT:InitUI()
   frame.resizeHandle:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up")
   frame.resizeHandle:SetHighlightTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight")
   frame.resizeHandle:SetPushedTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Down")
+  local function finishResize()
+    if not frame.isSizing then
+      return
+    end
+    frame:StopMovingOrSizing()
+    frame.isSizing = nil
+    GT:SaveBarSize()
+    GT:SaveBarPosition()
+  end
+
   frame.resizeHandle:SetScript("OnMouseDown", function(_, button)
     if button ~= "LeftButton" then
       return
@@ -616,10 +658,15 @@ function GT:InitUI()
     end
   end)
   frame.resizeHandle:SetScript("OnMouseUp", function()
-    frame:StopMovingOrSizing()
-    frame.isSizing = nil
-    GT:SaveBarSize()
-    GT:SaveBarPosition()
+    finishResize()
+  end)
+  frame.resizeHandle:SetScript("OnHide", function()
+    finishResize()
+  end)
+  frame:SetScript("OnMouseUp", function(_, button)
+    if button == "LeftButton" then
+      finishResize()
+    end
   end)
 
   frame:SetScript("OnUpdate", function(self, elapsed)
@@ -664,6 +711,7 @@ function GT:InitUI()
   if self.overlayFrame.resizeHandle then
     self.overlayFrame.resizeHandle:SetShown(not (self.db and self.db.barLocked))
   end
+  self:UpdateUnlockOverlay()
   self:UpdateSoundToggleButton()
   self:ApplyBarStyle()
 end
@@ -713,6 +761,10 @@ function GT:UpdateThreatUI(state, percent, alpha, threatValue)
   local p = clampPercent(percent)
   local style = GT.VISUALS[state] or GT.VISUALS[GT.STATE_SAFE]
   local r, g, b, a = style.r, style.g, style.b, style.a
+  local fullAggro = (state == GT.STATE_AGGRO and p >= 100)
+  if fullAggro then
+    r, g, b, a = 1.00, 0.08, 0.08, 1.00
+  end
   if self.db and self.db.enableLowNoise and not self.testMode and (state == GT.STATE_SAFE or state == GT.STATE_RISING) then
     -- Desaturate safe/rising visuals in low-noise mode.
     r = (r * 0.45) + 0.20
@@ -729,11 +781,14 @@ function GT:UpdateThreatUI(state, percent, alpha, threatValue)
   self.overlayFrame.targetA = a
   self.overlayFrame.targetAlpha = targetAlpha
   local flashAllowed = not (self.db and self.db.enableFlash == false)
-  self.overlayFrame.flashEnabled = flashAllowed and ((self.testMode ~= nil) or (state == GT.STATE_DANGER or state == GT.STATE_AGGRO))
+  self.overlayFrame.flashEnabled = flashAllowed and ((self.testMode ~= nil) or (state == GT.STATE_DANGER) or fullAggro)
 
   local showPercentMode = self.testMode or (self.db and self.db.showPercentText)
 
-  if showPercentMode then
+  if fullAggro then
+    self.overlayFrame.valueText:SetText("AGGRO!!")
+    self.overlayFrame.valueText:Show()
+  elseif showPercentMode then
     self.overlayFrame.valueText:SetFormattedText("%d%%", p)
     self.overlayFrame.valueText:Show()
   else

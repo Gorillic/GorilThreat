@@ -1,6 +1,10 @@
+GorilThreat Addon License
 ALL RIGHTS RESERVED
 
 Copyright (c) 2026 TheGorilAbi
+
+This license applies to all original code, assets, and documentation of the
+GorilThreat addon unless otherwise explicitly stated.
 
 All rights reserved. No part of this software, including source code,
 assets, and documentation, may be used, copied, modified, merged,
@@ -19,11 +23,14 @@ in the software.
 
 Third-Party Components Notice
 
-This project includes and/or relies on third-party libraries under `libs/`.
-These components remain under their respective original licenses and are not
-relicensed under this project's terms.
+This project includes and/or relies on third-party libraries located under
+the `libs/` directory.
+
+These components are distributed under their original licenses and are
+explicitly excluded from this ALL RIGHTS RESERVED license.
 
 Included third-party components currently used in this addon package include:
+
 - LibThreatClassic2 (`libs/LibThreatClassic2.lua`)
 - LibStub (`libs/LibStub/LibStub.lua`)
 - CallbackHandler-1.0 (`libs/CallbackHandler-1.0/`)

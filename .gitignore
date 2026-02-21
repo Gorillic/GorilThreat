@@ -17,7 +17,6 @@
 
 # Addon content
 !libs/**
-!media/**
 
 # Exclude docs/notes from all locations
 *.md
