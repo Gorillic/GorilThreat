@@ -3,6 +3,8 @@ if not GT then
   return
 end
 
+local BAR_INSET = 2
+
 GT.VISUALS = GT.VISUALS or {
   [GT.STATE_SAFE] = { r = 0.20, g = 0.85, b = 0.30, a = 0.90 },
   [GT.STATE_RISING] = { r = 0.98, g = 0.84, b = 0.30, a = 0.92 },
@@ -368,6 +370,26 @@ function GT:ApplyBarLayout()
   self.db.barWidth = clamp(tonumber(self.db.barWidth) or 180, 120, 600)
   self.db.barHeight = clamp(tonumber(self.db.barHeight) or 18, 10, 80)
   self.overlayFrame:SetSize(self.db.barWidth, self.db.barHeight)
+  if self.overlayFrame.bar then
+    self.overlayFrame.bar:ClearAllPoints()
+    self.overlayFrame.bar:SetPoint("TOPLEFT", self.overlayFrame, "TOPLEFT", BAR_INSET, -BAR_INSET)
+    self.overlayFrame.bar:SetPoint("BOTTOMRIGHT", self.overlayFrame, "BOTTOMRIGHT", -BAR_INSET, BAR_INSET)
+  end
+  self:ApplyBarBackgroundVisibility()
+end
+
+function GT:ApplyBarBackgroundVisibility()
+  if not self.overlayFrame or not self.overlayFrame.bg then
+    return
+  end
+  local enabled = not (self.db and self.db.showBarBackground == false)
+  self.overlayFrame.bg:Show()
+  if enabled then
+    self.overlayFrame.bg:SetVertexColor(0.03, 0.14, 0.05, 0.86)
+  else
+    -- Keep a faint track so 0% threat state is still visible.
+    self.overlayFrame.bg:SetVertexColor(0.03, 0.14, 0.05, 0.34)
+  end
 end
 
 function GT:ApplyBarPosition()
@@ -521,11 +543,11 @@ function GT:InitUI()
   frame.bg = frame:CreateTexture(nil, "BACKGROUND")
   frame.bg:SetAllPoints(frame)
   frame.bg:SetTexture("Interface\\Buttons\\WHITE8X8")
-  frame.bg:SetVertexColor(0.02, 0.02, 0.02, 0.78)
+  frame.bg:SetVertexColor(0.03, 0.14, 0.05, 0.86)
 
   frame.bar = CreateFrame("StatusBar", nil, frame)
-  frame.bar:SetPoint("TOPLEFT", frame, "TOPLEFT", 1, -1)
-  frame.bar:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -1, 1)
+  frame.bar:SetPoint("TOPLEFT", frame, "TOPLEFT", BAR_INSET, -BAR_INSET)
+  frame.bar:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -BAR_INSET, BAR_INSET)
   frame.bar:SetMinMaxValues(0, 100)
   frame.bar:SetStatusBarTexture(self:GetBarTexturePath(self.db and self.db.barTextureStyle))
   frame.bar:SetStatusBarColor(0.2, 0.85, 0.3, 1)
@@ -714,6 +736,7 @@ function GT:InitUI()
   self:UpdateUnlockOverlay()
   self:UpdateSoundToggleButton()
   self:ApplyBarStyle()
+  self:ApplyBarBackgroundVisibility()
 end
 
 function GT:HideThreatUI()

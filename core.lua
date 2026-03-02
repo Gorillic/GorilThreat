@@ -4,7 +4,7 @@ GorilThreat = GorilThreat or {}
 local GT = GorilThreat
 
 GT.ADDON_NAME = ADDON_NAME or "GorilThreat"
-GT.VERSION = "0.1.2"
+GT.VERSION = "0.1.3"
 GT.THROTTLE_SECONDS = 0.2
 
 GT.STATE_SAFE = "SAFE"
@@ -26,6 +26,7 @@ GT.DEFAULTS = {
   outOfCombatAlpha = 60,
   enableLowNoise = true,
   lowNoiseAlpha = 72,
+  showBarBackground = true,
   alertCooldownSeconds = 3,
   enableAggroBlink = true,
   barWidth = 180,
@@ -441,6 +442,7 @@ function GT:ValidateDB()
   self.db.outOfCombatAlpha = clamp(tonumber(self.db.outOfCombatAlpha) or self.DEFAULTS.outOfCombatAlpha, 15, 100)
   self.db.enableLowNoise = not not self.db.enableLowNoise
   self.db.lowNoiseAlpha = clamp(tonumber(self.db.lowNoiseAlpha) or self.DEFAULTS.lowNoiseAlpha, 15, 100)
+  self.db.showBarBackground = not not self.db.showBarBackground
   self.db.enableAggroBlink = not not self.db.enableAggroBlink
   self.db.barWidth = clamp(tonumber(self.db.barWidth) or self.DEFAULTS.barWidth, 120, 600)
   self.db.barHeight = clamp(tonumber(self.db.barHeight) or self.DEFAULTS.barHeight, 10, 80)

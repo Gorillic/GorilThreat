@@ -660,6 +660,12 @@ function GT:InitOptions()
   end, leftX)
   createCheckbox(content, "Show percent text", "showPercentText", y, nil, rightX)
   y = y - 28
+  createCheckbox(content, "Show bar background", "showBarBackground", y, function()
+    if GT.ApplyBarBackgroundVisibility then
+      GT:ApplyBarBackgroundVisibility()
+    end
+  end, leftX)
+  y = y - 28
   createCheckbox(content, "Show only in combat", "showOnlyInCombat", y, nil, leftX)
   createCheckbox(content, "Enable sounds (Master channel)", "enableSound", y, function(value)
     if GT.SetAddonSoundEnabled then

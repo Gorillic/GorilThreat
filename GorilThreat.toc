@@ -1,8 +1,8 @@
-## Interface: 120000
+## Interface: 120000, 11508
 ## Title: GorilThreat
 ## Notes: Minimal threat bar awareness for WoW Anniversary.
 ## Author: Goril
-## Version: 0.1.2
+## Version: 0.1.3
 ## IconTexture: Interface\Icons\Ability_Devour.blp
 ## SavedVariables: GorilThreatDB
 ## OptionalDeps: LibSharedMedia-3.0, SharedMedia

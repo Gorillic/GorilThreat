@@ -1,6 +1,12 @@
 # Changelog
 
-## 0.1.2 - Unreleased
+## 0.1.3 - 2026-03-02
+- Added `Show bar background` option in settings to control threat bar background visibility.
+- Improved bar readability by increasing inner inset so the background track is more visible in combat.
+- Updated background visuals from dark gray to a dark green-tinted track for clearer contrast with threat fill.
+- When background is disabled, keep a faint track instead of fully hiding it so `0%` state remains visible.
+
+## 0.1.2 - 2026-02-21
 - Synced addon version to `0.1.2` in `core.lua` and `GorilThreat.toc`.
 - Added minimap right-click action to toggle bar lock/unlock.
 - Expanded minimap tooltip with right-click lock/unlock hint.
